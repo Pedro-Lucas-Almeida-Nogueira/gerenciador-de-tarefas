@@ -1,3 +1,31 @@
 from django.db import models
 
-# Create your models here.
+class Base(models.Model):
+    criacao_em = models.DateTimeField(auto_now_add=True)
+    atualizacao_em = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+class Usuario(Base):
+    nome = models.CharField(max_length=255)
+    email = models.EmailField()
+
+    class Meta:
+        verbose_name = "Usuário"
+        verbose_name_plural = "Usuários"
+    
+    def __str__(self):
+        return self.nome
+
+class Tarefa(Base):
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name="tarefas")
+    titulo = models.CharField(max_length=255)
+    descricao = models.TextField(blank=True)
+
+    class Meta:
+        verbose_name = "Tarefa"
+        verbose_name_plural = "Tarefas"
+    
+    def __str__(self):
+        return self.titulo
