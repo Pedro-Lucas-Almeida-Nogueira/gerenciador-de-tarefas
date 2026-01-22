@@ -6,3 +6,11 @@ class Base(models.Model):
 
     class Meta:
         abstract = True
+
+class Tarefa(Base):
+    titulo = models.CharField(max_length=255)
+    descricao = models.TextField(blank=True)
+
+    class Meta:
+        verbose_name = "Tarefa"
+        verbose_name_plural = "Tarefas"
