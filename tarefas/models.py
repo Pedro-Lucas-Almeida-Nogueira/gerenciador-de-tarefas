@@ -7,6 +7,17 @@ class Base(models.Model):
     class Meta:
         abstract = True
 
+class Usuario(Base):
+    nome = models.CharField(max_length=255)
+    email = models.EmailField()
+
+    class Meta:
+        verbose_name = "Usuário"
+        verbose_name_plural = "Usuários"
+    
+    def __str__(self):
+        return self.nome
+
 class Tarefa(Base):
     titulo = models.CharField(max_length=255)
     descricao = models.TextField(blank=True)
