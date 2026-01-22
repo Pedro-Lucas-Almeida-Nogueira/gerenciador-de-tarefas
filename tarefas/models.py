@@ -19,6 +19,7 @@ class Usuario(Base):
         return self.nome
 
 class Tarefa(Base):
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name="tarefas")
     titulo = models.CharField(max_length=255)
     descricao = models.TextField(blank=True)
 
