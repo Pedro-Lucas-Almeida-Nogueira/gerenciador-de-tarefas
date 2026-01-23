@@ -10,3 +10,11 @@ class UsuarioApiView(APIView):
         usuarios = Usuario.objects.all()
         serializer = UsuarioSerializer(usuarios, many=True)
         return Response(serializer.data)
+    
+
+class TarefaApiView(APIView):
+
+    def get(self, request):
+        tarefas = Tarefa.objects.all()
+        serializer = TarefaSerializer(tarefas, many=True)
+        return Response(serializer.data)
