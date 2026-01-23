@@ -12,5 +12,5 @@ class TarefaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Tarefa
-        fields = ("id", "titulo", "descricao", "criacao_em", "atualizacao_em")
+        fields = ("id", "usuario", "titulo", "descricao", "criacao_em", "atualizacao_em")
         read_only_fields = ("criacao_em", "atualizacao_em")
