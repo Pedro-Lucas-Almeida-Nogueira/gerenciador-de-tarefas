@@ -5,10 +5,10 @@ class UsuarioSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Usuario
-        fields = ("nome", "email", "criacao_em", "atualizacao_em")
+        fields = ("id","nome", "email", "criacao_em", "atualizacao_em")
 
 class TarefaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Tarefa
-        fields = ("titulo", "descricao", "criacao_em", "atualizacao_em")
+        fields = ("id", "titulo", "descricao", "criacao_em", "atualizacao_em")
