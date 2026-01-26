@@ -27,7 +27,12 @@ class UsuarioApiView(APIView):
 
 class TarefaApiView(APIView):
 
-    def get(self, request):
+    def get(self, request, pk=None):
+        if pk:
+            tarefa = Tarefa.objects.get(pk=pk)
+            serializer = TarefaSerializer(tarefa)
+            return Response(serializer.data)           
+
         tarefas = Tarefa.objects.all()
         serializer = TarefaSerializer(tarefas, many=True)
         return Response(serializer.data)
