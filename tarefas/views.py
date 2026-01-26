@@ -17,6 +17,8 @@ class UsuarioApiView(APIView):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     
+    
+    
 
 class TarefaApiView(APIView):
 
