@@ -61,3 +61,8 @@ class TarefaApiView(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
+    
+    def delete(self, request, pk):
+        tarefa = Tarefa.objects.get(pk=pk)
+        tarefa.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
