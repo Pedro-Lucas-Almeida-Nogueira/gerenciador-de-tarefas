@@ -29,6 +29,11 @@ class UsuarioApiView(APIView):
         serializer.save()
         return Response(serializer.data)
     
+    def delete(self, request, pk):
+        usuario = Usuario.objects.get(pk=pk)
+        usuario.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
     
     
 
