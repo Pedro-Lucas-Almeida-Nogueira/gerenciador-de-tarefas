@@ -6,7 +6,12 @@ from .serializers import UsuarioSerializer, TarefaSerializer
 
 class UsuarioApiView(APIView):
     
-    def get(self, request):
+    def get(self, request, pk=None):
+        if pk:
+            usuario = Usuario.objects.get(pk=pk)
+            serializer = UsuarioSerializer(usuario)
+            return Response(serializer.data)
+
         usuarios = Usuario.objects.all()
         serializer = UsuarioSerializer(usuarios, many=True)
         return Response(serializer.data)
@@ -17,10 +22,29 @@ class UsuarioApiView(APIView):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     
+    def put(self, request, pk):
+        usuario = Usuario.objects.get(pk=pk)
+        serializer = UsuarioSerializer(usuario, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+    
+    def delete(self, request, pk):
+        usuario = Usuario.objects.get(pk=pk)
+        usuario.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
+    
+    
 
 class TarefaApiView(APIView):
 
-    def get(self, request):
+    def get(self, request, pk=None):
+        if pk:
+            tarefa = Tarefa.objects.get(pk=pk)
+            serializer = TarefaSerializer(tarefa)
+            return Response(serializer.data)           
+
         tarefas = Tarefa.objects.all()
         serializer = TarefaSerializer(tarefas, many=True)
         return Response(serializer.data)
@@ -30,3 +54,15 @@ class TarefaApiView(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+    def put(self, request, pk):
+        tarefa = Tarefa.objects.get(pk=pk)
+        serializer = TarefaSerializer(tarefa, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+    
+    def delete(self, request, pk):
+        tarefa = Tarefa.objects.get(pk=pk)
+        tarefa.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
