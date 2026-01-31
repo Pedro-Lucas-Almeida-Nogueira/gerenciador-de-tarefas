@@ -10,6 +10,12 @@ class UsuariosApiView(APIView):
         serializer = UsuarioSerializer(usuarios, many=True)
         return Response(serializer.data)
 
+    def post(self, request):
+        serializer = UsuarioSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
 
 class UsuarioApiView(APIView):
     
@@ -18,13 +24,6 @@ class UsuarioApiView(APIView):
         serializer = UsuarioSerializer(usuario)
         return Response(serializer.data)
 
-    
-    def post(self, request):
-        serializer = UsuarioSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    
     def put(self, request, pk):
         usuario = Usuario.objects.get(pk=pk)
         serializer = UsuarioSerializer(usuario, data=request.data)
