@@ -4,17 +4,20 @@ from rest_framework import status
 from .models import Usuario, Tarefa
 from .serializers import UsuarioSerializer, TarefaSerializer
 
-class UsuarioApiView(APIView):
-    
-    def get(self, request, pk=None):
-        if pk:
-            usuario = Usuario.objects.get(pk=pk)
-            serializer = UsuarioSerializer(usuario)
-            return Response(serializer.data)
-
+class UsuariosApiView(APIView):
+    def get(self, request):
         usuarios = Usuario.objects.all()
         serializer = UsuarioSerializer(usuarios, many=True)
         return Response(serializer.data)
+
+
+class UsuarioApiView(APIView):
+    
+    def get(self, request, pk):    
+        usuario = Usuario.objects.get(pk=pk)
+        serializer = UsuarioSerializer(usuario)
+        return Response(serializer.data)
+
     
     def post(self, request):
         serializer = UsuarioSerializer(data=request.data)
