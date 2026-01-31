@@ -37,20 +37,21 @@ class UsuarioApiView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
     
     
-    
 
-class TarefaApiView(APIView):
-
-    def get(self, request, pk=None):
-        if pk:
-            tarefa = Tarefa.objects.get(pk=pk)
-            serializer = TarefaSerializer(tarefa)
-            return Response(serializer.data)           
-
+class TarefasApiView(APIView):
+    def get(self, request):
         tarefas = Tarefa.objects.all()
         serializer = TarefaSerializer(tarefas, many=True)
         return Response(serializer.data)
-    
+
+
+class TarefaApiView(APIView):
+
+    def get(self, request, pk):
+        tarefa = Tarefa.objects.get(pk=pk)
+        serializer = TarefaSerializer(tarefa)
+        return Response(serializer.data)           
+
     def post(self, request):
         serializer = TarefaSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
