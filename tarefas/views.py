@@ -39,7 +39,12 @@ class UsuarioApiView(APIView):
     
 
 class TarefasApiView(APIView):
-    def get(self, request):
+    def get(self, request, pk = None):
+        if pk:
+            tarefas = Tarefa.objects.filter(usuario=pk)
+            serializer = TarefaSerializer(tarefas, many=True)
+            return Response(serializer.data)
+
         tarefas = Tarefa.objects.all()
         serializer = TarefaSerializer(tarefas, many=True)
         return Response(serializer.data)
@@ -53,7 +58,12 @@ class TarefasApiView(APIView):
 
 class TarefaApiView(APIView):
 
-    def get(self, request, pk):
+    def get(self, request, pk, pk_tarefa=None):
+        if pk_tarefa:
+            tarefa = Tarefa.objects.get(pk=pk_tarefa, usuario=pk)
+            serializer = TarefaSerializer(tarefa)
+            return Response(serializer.data)
+
         tarefa = Tarefa.objects.get(pk=pk)
         serializer = TarefaSerializer(tarefa)
         return Response(serializer.data)           
